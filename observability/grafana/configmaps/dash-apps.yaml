@@ -259,11 +259,201 @@ data:
             "uid": "Prometheus"
           },
           "fieldConfig": {
-            "defaults": {},
+            "defaults": {
+              "max": 1,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  { "color": "red", "value": 0 },
+                  { "color": "green", "value": 1 }
+                ]
+              }
+            },
             "overrides": []
           },
           "gridPos": { "h": 8, "w": 24, "x": 0, "y": 5 },
           "id": 3,
+          "options": {
+            "displayMode": "lcd",
+            "minVizHeight": 10,
+            "minVizWidth": 0,
+            "namePlacement": "left",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": ["lastNotNull"],
+              "fields": "",
+              "values": false
+            },
+            "showUnfilled": true,
+            "sizing": "auto",
+            "valueMode": "color"
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "max by (pod) (kube_pod_status_phase{phase=\"Running\", namespace=~\"$namespace\", pod=~\"$pod\"})",
+              "legendFormat": "{{pod}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Pods status (1 = Running / 0 = Fora)",
+          "type": "bargauge"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "cores"
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 5, "w": 6, "x": 0, "y": 13 },
+          "id": 8,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": ["lastNotNull"],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}[5m]))",
+              "refId": "A"
+            }
+          ],
+          "title": "CPU do pod selecionado",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "bytes"
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 5, "w": 6, "x": 6, "y": 13 },
+          "id": 9,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": ["lastNotNull"],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"})",
+              "refId": "A"
+            }
+          ],
+          "title": "Memória do pod selecionado",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "Bps"
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 5, "w": 6, "x": 12, "y": 13 },
+          "id": 10,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": ["lastNotNull"],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum(rate(container_network_receive_bytes_total{namespace=~\"$namespace\", pod=~\"$pod\"}[5m]))",
+              "refId": "A"
+            }
+          ],
+          "title": "RX do pod selecionado",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "Bps"
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 5, "w": 6, "x": 18, "y": 13 },
+          "id": 11,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": ["lastNotNull"],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum(rate(container_network_transmit_bytes_total{namespace=~\"$namespace\", pod=~\"$pod\"}[5m]))",
+              "refId": "A"
+            }
+          ],
+          "title": "TX do pod selecionado",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "cores"
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 0, "y": 18 },
+          "id": 12,
           "options": {
             "legend": {
               "displayMode": "list",
@@ -276,13 +466,13 @@ data:
           "targets": [
             {
               "editorMode": "code",
-              "expr": "sum by (job) (up)",
-              "legendFormat": "{{job}}",
+              "expr": "sum by (pod) (rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"}[5m]))",
+              "legendFormat": "{{pod}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "UP por job",
+          "title": "CPU ao longo do tempo",
           "type": "timeseries"
         },
         {
@@ -291,152 +481,33 @@ data:
             "uid": "Prometheus"
           },
           "fieldConfig": {
-            "defaults": {},
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "CPU"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "cores"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Memory"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "bytes"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "RX"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "Bps"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "TX"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "Bps"
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": { "h": 14, "w": 24, "x": 0, "y": 13 },
-          "id": 8,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "show": false
+            "defaults": {
+              "unit": "bytes"
             },
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": false,
-                "displayName": "namespace"
-              }
-            ]
+            "overrides": []
+          },
+          "gridPos": { "h": 8, "w": 12, "x": 12, "y": 18 },
+          "id": 13,
+          "options": {
+            "legend": {
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
           },
           "targets": [
             {
               "editorMode": "code",
-              "expr": "sum by (namespace,pod) (rate(container_cpu_usage_seconds_total{container!=\"\",image!=\"\"}[5m]))",
-              "format": "table",
-              "instant": true,
+              "expr": "sum by (pod) (container_memory_working_set_bytes{namespace=~\"$namespace\", pod=~\"$pod\", container!=\"\", image!=\"\"})",
+              "legendFormat": "{{pod}}",
+              "range": true,
               "refId": "A"
-            },
-            {
-              "editorMode": "code",
-              "expr": "sum by (namespace,pod) (container_memory_working_set_bytes{container!=\"\",image!=\"\"})",
-              "format": "table",
-              "instant": true,
-              "refId": "B"
-            },
-            {
-              "editorMode": "code",
-              "expr": "sum by (namespace,pod) (rate(container_network_receive_bytes_total[5m]))",
-              "format": "table",
-              "instant": true,
-              "refId": "C"
-            },
-            {
-              "editorMode": "code",
-              "expr": "sum by (namespace,pod) (rate(container_network_transmit_bytes_total[5m]))",
-              "format": "table",
-              "instant": true,
-              "refId": "D"
-            },
-            {
-              "editorMode": "code",
-              "expr": "max by (namespace,pod,phase) (kube_pod_status_phase{phase=~\"Pending|Running|Succeeded|Failed|Unknown\"} == 1)",
-              "format": "table",
-              "instant": true,
-              "refId": "E"
             }
           ],
-          "title": "Pods overview",
-          "transformations": [
-            {
-              "id": "labelsToFields",
-              "options": {
-                "mode": "columns"
-              }
-            },
-            {
-              "id": "merge",
-              "options": {}
-            },
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "Time": true,
-                  "Time #A": true,
-                  "Time #B": true,
-                  "Time #C": true,
-                  "Time #D": true
-                },
-                "indexByName": {
-                  "namespace": 0,
-                  "pod": 1,
-                  "phase": 2,
-                  "Value #A": 3,
-                  "Value #B": 4,
-                  "Value #C": 5,
-                  "Value #D": 6
-                }
-                "renameByName": {
-                  "phase": "Status",
-                  "Value #A": "CPU",
-                  "Value #B": "Memory",
-                  "Value #C": "RX",
-                  "Value #D": "TX"
-                }
-              }
-            }
-          ],
-          "type": "table"
+          "title": "Memória ao longo do tempo",
+          "type": "timeseries"
         }
       ],
       "schemaVersion": 39,
@@ -446,7 +517,62 @@ data:
         "kubernetes"
       ],
       "templating": {
-        "list": []
+        "list": [
+          {
+            "current": {
+              "selected": true,
+              "text": ".*",
+              "value": ".*"
+            },
+            "datasource": {
+              "type": "prometheus",
+              "uid": "Prometheus"
+            },
+            "definition": "label_values(kube_pod_info, namespace)",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Namespace",
+            "multi": false,
+            "name": "namespace",
+            "options": [],
+            "query": {
+              "qryType": 1,
+              "query": "label_values(kube_pod_info, namespace)",
+              "refId": "Prometheus-namespace"
+            },
+            "refresh": 1,
+            "regex": "",
+            "sort": 1,
+            "type": "query"
+          },
+          {
+            "current": {
+              "selected": true,
+              "text": ".*",
+              "value": ".*"
+            },
+            "datasource": {
+              "type": "prometheus",
+              "uid": "Prometheus"
+            },
+            "definition": "label_values(kube_pod_info{namespace=~\"$namespace\"}, pod)",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Pod",
+            "multi": true,
+            "name": "pod",
+            "options": [],
+            "query": {
+              "qryType": 1,
+              "query": "label_values(kube_pod_info{namespace=~\"$namespace\"}, pod)",
+              "refId": "Prometheus-pod"
+            },
+            "refresh": 1,
+            "regex": "",
+            "sort": 1,
+            "type": "query"
+          }
+        ]
       },
       "time": {
         "from": "now-30m",
@@ -455,5 +581,5 @@ data:
       "timepicker": {},
       "timezone": "",
       "title": "Apps Overview",
-      "version": 2
+      "version": 3
     }
