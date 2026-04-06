@@ -31,7 +31,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PROME"
+            "uid": "Prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -88,7 +88,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PROME"
+            "uid": "Prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -142,7 +142,7 @@ data:
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PROME"
+            "uid": "Prometheus"
           },
           "fieldConfig": {
             "defaults": {
