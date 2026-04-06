@@ -412,10 +412,10 @@ data:
               "options": {
                 "excludeByName": {
                   "Time": true,
-                  "Time 1": true,
-                  "Time 2": true,
-                  "Time 3": true,
-                  "Time 4": true
+                  "Time #A": true,
+                  "Time #B": true,
+                  "Time #C": true,
+                  "Time #D": true
                 },
                 "indexByName": {
                   "namespace": 0,
