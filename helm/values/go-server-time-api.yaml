@@ -3,9 +3,9 @@ nameOverride: go-api
 replicaCount: 1
 
 image:
-  repository: go-time-api
-  tag: local
-  pullPolicy: Never
+  repository: ghcr.io/analiviameister/go-server-time-api
+  tag: "24180a4"
+  pullPolicy: IfNotPresent
 
 containerPort: 8080
 
