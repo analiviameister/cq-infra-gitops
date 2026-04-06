@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: python-api
+  name: python-text-display-api
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "1"
@@ -13,7 +13,7 @@ spec:
     path: charts/app
     helm:
       valueFiles:
-        - ../../values/python-api.yaml
+        - ../../helm/values/python-text-display-api.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: apps
