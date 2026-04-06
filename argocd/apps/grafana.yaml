@@ -4,7 +4,7 @@ metadata:
   name: grafana
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
@@ -13,7 +13,15 @@ spec:
     targetRevision: 8.5.1
     helm:
       values: |
+        adminUser: admin
         adminPassword: admin
+
+        service:
+          type: ClusterIP
+
+        persistence:
+          enabled: false
+
         resources:
           requests:
             cpu: 50m
@@ -21,12 +29,6 @@ spec:
           limits:
             cpu: 200m
             memory: 256Mi
-
-        service:
-          type: ClusterIP
-
-        persistence:
-          enabled: false
 
         datasources:
           datasources.yaml:
@@ -37,6 +39,23 @@ spec:
                 access: proxy
                 url: http://prometheus-server.monitoring.svc.cluster.local
                 isDefault: true
+                editable: true
+
+        dashboardProviders:
+          dashboardproviders.yaml:
+            apiVersion: 1
+            providers:
+              - name: default
+                orgId: 1
+                folder: General
+                type: file
+                disableDeletion: false
+                editable: true
+                options:
+                  path: /var/lib/grafana/dashboards/default
+
+        dashboardsConfigMaps:
+          default: grafana-dash-apps
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
