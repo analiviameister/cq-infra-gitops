@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: go-api
+  name: go-server-time-api
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "1"
@@ -10,10 +10,10 @@ spec:
   source:
     repoURL: https://github.com/analiviameister/cq-infra-gitops.git
     targetRevision: HEAD
-    path: charts/app
+    path: helm/charts
     helm:
       valueFiles:
-        - ../../values/go-api.yaml
+        - ../../helm/values/go-server-time-api.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: apps
