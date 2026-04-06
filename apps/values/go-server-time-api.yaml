@@ -1,0 +1,32 @@
+nameOverride: go-api
+
+replicaCount: 1
+
+image:
+  repository: go-time-api
+  tag: local
+  pullPolicy: Never
+
+containerPort: 8080
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+  host: go.local
+  path: /
+
+env:
+  - name: PORT
+    value: "8080"
+  - name: REDIS_ADDR
+    value: "redis-master.infra.svc.cluster.local:6379"
+  - name: REDIS_PASSWORD
+    value: ""
+
+resources: {}

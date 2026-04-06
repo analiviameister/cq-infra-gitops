@@ -1,0 +1,26 @@
+nameOverride: python-api
+
+replicaCount: 1
+
+image:
+  repository: python-text-api
+  tag: local
+  pullPolicy: Never
+
+containerPort: 8000
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+ingress:
+  enabled: true
+  className: nginx
+  host: python.local
+  path: /
+
+env: []
+
+resources: {}

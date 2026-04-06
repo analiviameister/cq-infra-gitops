@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: python-api
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/analiviameister/cq-infra-gitops.git
+    targetRevision: HEAD
+    path: charts/app
+    helm:
+      valueFiles:
+        - ../../values/python-api.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

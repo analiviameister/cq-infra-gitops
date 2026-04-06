@@ -1,0 +1,68 @@
+name: Build image and update GitOps
+description: Builda imagem, publica no GHCR e atualiza values
+
+inputs:
+  image_name:
+    required: true
+  image_tag:
+    required: true
+  gitops_file:
+    required: true
+  gitops_token:
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Login GHCR
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ github.token }}
+
+    - name: Setup buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        push: true
+        tags: |
+          ${{ inputs.image_name }}:${{ inputs.image_tag }}
+          ${{ inputs.image_name }}:latest
+
+    - name: Checkout GitOps repo
+      uses: actions/checkout@v4
+      with:
+        repository: analiviameister/cq-infra-gitops
+        token: ${{ inputs.gitops_token }}
+        path: gitops
+
+    - name: Update values
+      shell: bash
+      run: |
+        python3 - <<PY
+        from pathlib import Path
+        import re
+
+        p = Path("gitops/${{ inputs.gitops_file }}")
+        text = p.read_text()
+
+        text = re.sub(r'repository:\s*.*', 'repository: ${{ inputs.image_name }}', text)
+        text = re.sub(r'tag:\s*.*', 'tag: "${{ inputs.image_tag }}"', text)
+        text = re.sub(r'pullPolicy:\s*.*', 'pullPolicy: IfNotPresent', text)
+
+        p.write_text(text)
+        PY
+
+    - name: Commit and push
+      shell: bash
+      run: |
+        cd gitops
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add "${{ inputs.gitops_file }}"
+        git commit -m "chore: update ${{ inputs.image_name }}:${{ inputs.image_tag }}" || echo "sem mudanças"
+        git push
