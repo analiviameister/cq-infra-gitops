@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/analiviameister/cq-infra-gitops.git
     targetRevision: HEAD
-    path: charts/app
+    path: helm/charts
     helm:
       valueFiles:
         - ../../helm/values/python-text-display-api.yaml
