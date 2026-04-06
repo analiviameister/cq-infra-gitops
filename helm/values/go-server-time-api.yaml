@@ -18,7 +18,7 @@ service:
 ingress:
   enabled: true
   className: traefik
-  host: go-server-time-api.local
+  host: go-server-time-api.127.0.0.1.nip.io
   path: /
 
 env:

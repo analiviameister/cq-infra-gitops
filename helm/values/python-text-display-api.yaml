@@ -18,7 +18,7 @@ service:
 ingress:
   enabled: true
   className: traefik
-  host: python-text-display-api.local
+  host: python-text-display-api.127.0.0.1.nip.io
   path: /
 
 env:
