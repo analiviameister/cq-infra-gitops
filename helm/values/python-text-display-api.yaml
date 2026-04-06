@@ -25,7 +25,7 @@ env:
   - name: PORT
     value: "8080"
   - name: REDIS_HOST
-    value: "redis-master.infra.svc.cluster.local:6379"
+    value: "redis-master.infra.svc.cluster.local"
   - name: REDIS_PASSWORD
     value: ""
 
