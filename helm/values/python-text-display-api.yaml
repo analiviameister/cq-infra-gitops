@@ -24,7 +24,7 @@ ingress:
 env:
   - name: PORT
     value: "8080"
-  - name: REDIS_ADDR
+  - name: REDIS_HOST
     value: "redis-master.infra.svc.cluster.local:6379"
   - name: REDIS_PASSWORD
     value: ""
