@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: redis
-    targetRevision: 20.13.4
+    targetRevision: 25.3.9
     helm:
       values: |
         architecture: standalone
