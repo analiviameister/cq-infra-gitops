@@ -1,27 +1,27 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx
+  name: traefik
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: default
   source:
-    repoURL: https://kubernetes.github.io/ingress-nginx
-    chart: ingress-nginx
-    targetRevision: 4.12.1
+    repoURL: https://traefik.github.io/charts
+    chart: traefik
+    targetRevision: 34.5.0
     helm:
       values: |
-        controller:
-          ingressClassResource:
-            name: nginx
-          ingressClass: nginx
-          service:
-            type: NodePort
+        service:
+          type: NodePort
+        ingressClass:
+          enabled: true
+          isDefaultClass: false
+          name: traefik
   destination:
     server: https://kubernetes.default.svc
-    namespace: ingress-nginx
+    namespace: traefik
   syncPolicy:
     automated:
       prune: true
