@@ -1,4 +1,4 @@
-nameOverride: python-api
+nameOverride: python-text-display-api
 
 replicaCount: 1
 
@@ -17,10 +17,16 @@ service:
 
 ingress:
   enabled: true
-  className: nginx
+  className: traefik
   host: python.local
   path: /
 
-env: []
+env:
+  - name: PORT
+    value: "8080"
+  - name: REDIS_ADDR
+    value: "redis-master.infra.svc.cluster.local:6379"
+  - name: REDIS_PASSWORD
+    value: ""
 
 resources: {}

@@ -1,4 +1,4 @@
-nameOverride: go-api
+nameOverride: go-server-time-api
 
 replicaCount: 1
 
@@ -18,7 +18,7 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: go.local
+  host: go-server-time-api.local
   path: /
 
 env:
