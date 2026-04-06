@@ -4,7 +4,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/analiviameister/python-text-display-api
-  tag: "7c5b4de"
+  tag: "678bcf3"
   pullPolicy: IfNotPresent
 
 containerPort: 8000
