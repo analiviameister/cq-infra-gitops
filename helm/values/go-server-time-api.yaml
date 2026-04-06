@@ -4,7 +4,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/analiviameister/go-server-time-api
-  tag: "24180a4"
+  tag: "222a7d1"
   pullPolicy: IfNotPresent
 
 containerPort: 8080
