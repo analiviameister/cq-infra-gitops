@@ -421,17 +421,17 @@ data:
                   "namespace": 0,
                   "pod": 1,
                   "phase": 2,
-                  "Value": 3,
-                  "Value 1": 4,
-                  "Value 2": 5,
-                  "Value 3": 6
-                },
+                  "Value #A": 3,
+                  "Value #B": 4,
+                  "Value #C": 5,
+                  "Value #D": 6
+                }
                 "renameByName": {
                   "phase": "Status",
-                  "Value": "CPU",
-                  "Value 1": "Memory",
-                  "Value 2": "RX",
-                  "Value 3": "TX"
+                  "Value #A": "CPU",
+                  "Value #B": "Memory",
+                  "Value #C": "RX",
+                  "Value #D": "TX"
                 }
               }
             }
