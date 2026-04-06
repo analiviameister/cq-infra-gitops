@@ -18,7 +18,7 @@ service:
 
 ingress:
   enabled: false
-  className: nginx
+  className: traefik
   host: example.local
   path: /
 
