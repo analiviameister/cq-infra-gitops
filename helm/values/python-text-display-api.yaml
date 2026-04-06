@@ -3,9 +3,9 @@ nameOverride: python-api
 replicaCount: 1
 
 image:
-  repository: python-text-api
-  tag: local
-  pullPolicy: Never
+  repository: ghcr.io/analiviameister/python-text-display-api
+  tag: "06865d8"
+  pullPolicy: IfNotPresent
 
 containerPort: 8000
 
