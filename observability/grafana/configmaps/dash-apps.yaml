@@ -38,25 +38,16 @@ data:
               "color": {
                 "mode": "thresholds"
               },
-              "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
+                  { "color": "green", "value": null }
                 ]
               }
             },
             "overrides": []
           },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 0
-          },
+          "gridPos": { "h": 5, "w": 4, "x": 0, "y": 0 },
           "id": 1,
           "options": {
             "colorMode": "value",
@@ -64,9 +55,7 @@ data:
             "justifyMode": "auto",
             "orientation": "auto",
             "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
+              "calcs": ["lastNotNull"],
               "fields": "",
               "values": false
             },
@@ -77,8 +66,6 @@ data:
             {
               "editorMode": "code",
               "expr": "sum(up)",
-              "legendFormat": "",
-              "range": true,
               "refId": "A"
             }
           ],
@@ -92,25 +79,16 @@ data:
           },
           "fieldConfig": {
             "defaults": {
-              "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
+                  { "color": "green", "value": null }
                 ]
               }
             },
             "overrides": []
           },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 0
-          },
+          "gridPos": { "h": 5, "w": 4, "x": 4, "y": 0 },
           "id": 2,
           "options": {
             "colorMode": "value",
@@ -118,9 +96,7 @@ data:
             "justifyMode": "auto",
             "orientation": "auto",
             "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
+              "calcs": ["lastNotNull"],
               "fields": "",
               "values": false
             },
@@ -131,8 +107,6 @@ data:
             {
               "editorMode": "code",
               "expr": "count(kube_pod_info)",
-              "legendFormat": "",
-              "range": true,
               "refId": "A"
             }
           ],
@@ -146,25 +120,149 @@ data:
           },
           "fieldConfig": {
             "defaults": {
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              }
+              "unit": "cores"
             },
             "overrides": []
           },
-          "gridPos": {
-            "h": 9,
-            "w": 24,
-            "x": 0,
-            "y": 8
+          "gridPos": { "h": 5, "w": 4, "x": 8, "y": 0 },
+          "id": 4,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": ["lastNotNull"],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
           },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{container!=\"\",image!=\"\"}[5m]))",
+              "refId": "A"
+            }
+          ],
+          "title": "CPU total",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "bytes"
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 5, "w": 4, "x": 12, "y": 0 },
+          "id": 5,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": ["lastNotNull"],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum(container_memory_working_set_bytes{container!=\"\",image!=\"\"})",
+              "refId": "A"
+            }
+          ],
+          "title": "Memória total",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "Bps"
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 5, "w": 4, "x": 16, "y": 0 },
+          "id": 6,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": ["lastNotNull"],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum(rate(container_network_receive_bytes_total[5m]))",
+              "refId": "A"
+            }
+          ],
+          "title": "RX total",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "unit": "Bps"
+            },
+            "overrides": []
+          },
+          "gridPos": { "h": 5, "w": 4, "x": 20, "y": 0 },
+          "id": 7,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": ["lastNotNull"],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum(rate(container_network_transmit_bytes_total[5m]))",
+              "refId": "A"
+            }
+          ],
+          "title": "TX total",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": { "h": 8, "w": 24, "x": 0, "y": 5 },
           "id": 3,
           "options": {
             "legend": {
@@ -186,12 +284,166 @@ data:
           ],
           "title": "UP por job",
           "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "CPU"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "cores"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Memory"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "bytes"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "RX"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "Bps"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TX"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "Bps"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": { "h": 14, "w": 24, "x": 0, "y": 13 },
+          "id": 8,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": false,
+                "displayName": "namespace"
+              }
+            ]
+          },
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "sum by (namespace,pod) (rate(container_cpu_usage_seconds_total{container!=\"\",image!=\"\"}[5m]))",
+              "format": "table",
+              "instant": true,
+              "refId": "A"
+            },
+            {
+              "editorMode": "code",
+              "expr": "sum by (namespace,pod) (container_memory_working_set_bytes{container!=\"\",image!=\"\"})",
+              "format": "table",
+              "instant": true,
+              "refId": "B"
+            },
+            {
+              "editorMode": "code",
+              "expr": "sum by (namespace,pod) (rate(container_network_receive_bytes_total[5m]))",
+              "format": "table",
+              "instant": true,
+              "refId": "C"
+            },
+            {
+              "editorMode": "code",
+              "expr": "sum by (namespace,pod) (rate(container_network_transmit_bytes_total[5m]))",
+              "format": "table",
+              "instant": true,
+              "refId": "D"
+            },
+            {
+              "editorMode": "code",
+              "expr": "max by (namespace,pod,phase) (kube_pod_status_phase{phase=~\"Pending|Running|Succeeded|Failed|Unknown\"} == 1)",
+              "format": "table",
+              "instant": true,
+              "refId": "E"
+            }
+          ],
+          "title": "Pods overview",
+          "transformations": [
+            {
+              "id": "labelsToFields",
+              "options": {
+                "mode": "columns"
+              }
+            },
+            {
+              "id": "merge",
+              "options": {}
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "Time 1": true,
+                  "Time 2": true,
+                  "Time 3": true,
+                  "Time 4": true
+                },
+                "indexByName": {
+                  "namespace": 0,
+                  "pod": 1,
+                  "phase": 2,
+                  "Value": 3,
+                  "Value 1": 4,
+                  "Value 2": 5,
+                  "Value 3": 6
+                },
+                "renameByName": {
+                  "phase": "Status",
+                  "Value": "CPU",
+                  "Value 1": "Memory",
+                  "Value 2": "RX",
+                  "Value 3": "TX"
+                }
+              }
+            }
+          ],
+          "type": "table"
         }
       ],
       "schemaVersion": 39,
       "tags": [
         "apps",
-        "prometheus"
+        "prometheus",
+        "kubernetes"
       ],
       "templating": {
         "list": []
@@ -203,5 +455,5 @@ data:
       "timepicker": {},
       "timezone": "",
       "title": "Apps Overview",
-      "version": 1
+      "version": 2
     }
