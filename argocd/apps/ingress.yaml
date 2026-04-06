@@ -13,12 +13,24 @@ spec:
     targetRevision: 34.5.0
     helm:
       values: |
-        service:
-          type: NodePort
         ingressClass:
           enabled: true
           isDefaultClass: false
           name: traefik
+
+        providers:
+          kubernetesIngress:
+            enabled: true
+
+        ports:
+          web:
+            hostPort: 80
+          websecure:
+            hostPort: 443
+
+        service:
+          enabled: true
+          type: ClusterIP
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik
