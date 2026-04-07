@@ -149,6 +149,30 @@ show_info() {
   echo "127.0.0.1 python.local"
 }
 
+exec_argo_and_traefik() {
+
+  log "Expondo ArgoCD"
+
+  kubectl port-forward svc/argocd-server -n argocd 8081:443 > /dev/null 2>&1 &
+
+  echo "Argo URL: https://localhost:8081 "
+  echo "Argo User: admin"
+  echo "Argo Password:" `kubectl -n argocd get secret argocd-initial-admin-secret \
+  -o jsonpath='{.data.password}' | base64 -d && echo`
+
+  echo ""
+  echo "Aguarde..."
+  echo ""
+  sleep 60
+
+  kubectl port-forward svc/traefik -n traefik 19080:80 > /dev/null 2>&1 &
+
+  echo "echo "Urls prontas:""
+  echo "http://go-server-time-api.127.0.0.1.nip.io:19080"
+  echo "http://python-text-display-api.127.0.0.1.nip.io:19080"
+
+}
+
 # ========================
 # Main
 # ========================
@@ -177,6 +201,7 @@ main() {
   create_namespaces
   apply_argocd_apps
   show_info
+  exec_argo_and_traefik
 }
 
 main "$@"
