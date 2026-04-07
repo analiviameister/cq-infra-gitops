@@ -240,7 +240,10 @@ curl -H "Host: go-server-time-api.127.0.0.1.nip.io" http://127.0.0.1:19080
 * TLS com Traefik
 * autenticação no Argo CD
 * multi-ambiente (dev/hml/prod)
-* observabilidade (Prometheus/Grafana)
+* Resiliencia e disponibilidade (Definir recursos, HPA, Redis em modo cluster...)
+* Observabilidade (Alertas, métricas customizadas instrumentadas nas aplicacoes, centralizacao de logs e tracing distribuido)
+* CID (Adicionar rollouts, imagem scanner)
+* Infraestrutura (Migrar para um cluster gerenciado, configurar Backups, utilizar IAC)
 
 ---
 
@@ -251,6 +254,5 @@ Simular um ambiente real de deploy com:
 * GitOps
 * Kubernetes
 * CI/CD
-* Infra como código
 
 Tudo rodando localmente!
