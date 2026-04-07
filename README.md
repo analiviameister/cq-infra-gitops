@@ -70,7 +70,7 @@ kind cluster
 
 ---
 
-##  Pré-requisitos
+## Pré-requisitos
 
 * Docker
 * kubectl
@@ -170,7 +170,7 @@ http://python-text-display-api.127.0.0.1.nip.io:19080
 
 ---
 
-# Padrão App of Apps
+## Padrão App of Apps
 
 O arquivo:
 
@@ -187,7 +187,7 @@ Isso garante que:
 
 ---
 
-#  Build das imagens
+## Build das imagens
 
 As imagens são geradas via GitHub Actions usando:
 
@@ -203,7 +203,7 @@ ghcr.io/<user>/python-text-display-api
 
 ---
 
-# Observações importantes
+## Observações importantes
 
 * O campo `ADDRESS` do Ingress pode ficar vazio em ambiente local (normal)
 * O Argo CD pode mostrar `Progressing` mesmo com a app funcionando
@@ -235,7 +235,7 @@ curl -H "Host: go-server-time-api.127.0.0.1.nip.io" http://127.0.0.1:19080
 
 ---
 
-# Próximos passos
+## Próximos passos
 
 * TLS com Traefik
 * autenticação no Argo CD
@@ -244,7 +244,7 @@ curl -H "Host: go-server-time-api.127.0.0.1.nip.io" http://127.0.0.1:19080
 
 ---
 
-# Objetivo do projeto
+## Objetivo do projeto
 
 Simular um ambiente real de deploy com:
 
@@ -253,4 +253,4 @@ Simular um ambiente real de deploy com:
 * CI/CD
 * Infra como código
 
-Tudo rodando localmente 🚀
+Tudo rodando localmente!
