@@ -170,7 +170,7 @@ http://python-text-display-api.127.0.0.1.nip.io:19080
 
 ---
 
-# 🧩 Padrão App of Apps
+# Padrão App of Apps
 
 O arquivo:
 
