@@ -7,12 +7,16 @@ Este repositório contém a configuração completa de um ambiente Kubernetes lo
 * **Traefik** (Ingress Controller)
 * **Redis** (cache)
 * **APIs em Go e Python**
+  
 
 O objetivo é simular um ambiente real de deploy utilizando GitOps, de forma simples e reproduzível.
 
 ---
 
 ## Arquitetura
+
+![Architecture](./docs/arch.svg)
+
 
 ```
 kind cluster
